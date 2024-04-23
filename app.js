@@ -3,6 +3,7 @@ const ejs = require("ejs");
 const path = require("path");
 const app = express();
 
+
 const pageRouter = require('./routes/page');
 const adminRouter = require('./routes/admin');
 
@@ -15,17 +16,8 @@ app.use(express.static(path.join(__dirname,"node_modules")));
 //app.use(express.static("public"));
 
 
-// PAGES 
+// ROUTES 
 app.use("/user", pageRouter);
-// app.get("/about.ejs", pageControllers.aboutPage);
-// app.get("/service.ejs", pageControllers.servicePage);
-// app.get("/menu.ejs", pageControllers.menuPage);
-// app.get("/contact.ejs", pageControllers.contactPage);
-// app.get("/booking.ejs", pageControllers.bookingPage);
-// app.get("/team.ejs", pageControllers.teamPage);
-// app.get("/testimonial.ejs", pageControllers.testimonialPage);
-
-// ADMIN PAGEs
 app.use("/admin",adminRouter);
 
 

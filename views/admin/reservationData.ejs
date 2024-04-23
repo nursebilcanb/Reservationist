@@ -51,38 +51,40 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                        <% if (typeof(contentTitle) != "undefined") { %>
-                            <h1 class="mt-4"> <%= contentTitle %></h1>
-                        <% } %>
-                    <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-
-                    <table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Tel No</th>
-                            <th scope="col" class="text-end ">Processing</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <% data.forEach((element,index) => { %>
-                                <tr>
-                                    <th scope="row"><%= index+1 %></th>
-                                    <td><%= element.fullName %></td>
-                                    <td><%= element.email %></td>
-                                    <td><%= element.telNo %></td>
-                                    <td class="text-end text-nowrap">
-                                        <a href="/admin/anc/edit" class="btn btn-primary">Edit</a>
-                                        <a href="/admin/anc/delete/" class="delete-btn btn btn-danger">Delete</a>
-                                    </td>
-                                  </tr>
-                            <% }) %>
-                         
-                        </tbody>
-                      </table>
-   
+                    <% if (typeof(contentTitle) != "undefined") { %>
+                        <h1 class="mt-4"> <%= contentTitle %></h1>
+                    <% } %>
+                <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
+                
+                <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">People</th>
+                        <th scope="col">Reservation Data</th>
+                        <th scope="col">Table No</th>
+                        <th scope="col">Special Request</th>
+                        <th scope="col" class="text-end ">Processing</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% data.forEach((element,index) => { %>
+                            <tr>
+                                <th scope="row"><%= index+1 %></th>
+                                <td><%= element.people %></td>
+                                <td><%= element.reservationDate %></td>
+                                <td><%= element.tableNo %></td>
+                                <td><%= element.specialRequest %></td>
+                                <td class="text-end text-nowrap">
+                                    <a href="/admin/anc/edit" class="btn btn-primary">Edit</a>
+                                    <a href="/admin/anc/delete/" class="delete-btn btn btn-danger">Delete</a>
+                                </td>
+                              </tr>
+                        <% }) %>
+                     
+                    </tbody>
+                  </table>
+                
                 </div>
             </div>
         </div>
@@ -92,3 +94,5 @@
         <script src="/static/admin/js/scripts.js"></script>
     </body>
 </html>
+
+

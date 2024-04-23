@@ -1,10 +1,10 @@
 'use strict';
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const { Model,DataTypes,Sequelize } = require('sequelize');
 const config = require('../config/config.json');
 
 const sequelize = new Sequelize(config.development);
 
-class Customer extends Model {
+class Reservation extends Model {
   /**
    * Helper method for defining associations.
    * This method is not a part of Sequelize lifecycle.
@@ -14,16 +14,17 @@ class Customer extends Model {
     // define association here
   }
 }
-Customer.init(
+Reservation.init(
   {
-    fullName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    telNo: DataTypes.STRING,
+    people: DataTypes.INTEGER,
+    reservationDate: DataTypes.DATE,
+    tableNo: DataTypes.STRING,
+    specialRequest: DataTypes.STRING,
   },
   {
     sequelize,
-    modelName: 'Customer',
+    modelName: 'Reservation',
   }
 );
 
-module.exports = Customer;
+module.exports = Reservation;
