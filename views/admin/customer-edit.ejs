@@ -50,40 +50,20 @@
                     </div>
                 </nav>
                 <!-- Page content-->
-                <div class="container-fluid">
-                        <% if (typeof(contentTitle) != "undefined") { %>
-                            <h1 class="mt-4"> <%= contentTitle %></h1>
-                        <% } %>
-                    <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-
-                    <table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Tel No</th>
-                            <th scope="col" class="text-end ">Processing</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <% data.forEach(element => { %>
-                                <tr>
-                                    <th scope="row"><%= element.id %></th>
-                                    <td><%= element.fullName %></td>
-                                    <td><%= element.email %></td>
-                                    <td><%= element.telNo %></td>
-                                    <td class="text-end text-nowrap">
-                                        <a href="/admin/panel/customerData/edit/<%= element.id %>" class="btn btn-primary">Edit</a>
-                                        <a href="/admin/panel/customerData/delete/<%= element.id %>" class="delete-btn btn btn-danger">Delete</a>
-                                    </td>
-                                  </tr>
-                            <% }) %>
-                         
-                        </tbody>
-                      </table>
-   
-                </div>
+                <form>
+                    <div class="form-group">
+                      <label for="fullName">Full Name</label>
+                      <input type="text" class="form-control" id="fullName" placeholder="<%= data.fullName %>">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" id="email" placeholder="<%= data.email %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="telNo">Tel No</label>
+                        <input type="tel" class="form-control" id="telNo" placeholder="<%= data.telNo %>">
+                      </div>
+                  </form>
             </div>
         </div>
         <!-- Bootstrap core JS-->

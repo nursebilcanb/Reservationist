@@ -69,9 +69,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                      <% data.forEach((element,index) => { %>
+                    <% if (Array.isArray(data)) { %>
+                      <% data.forEach(element => { %>
                           <tr>
-                              <th scope="row"><%= index+1 %></th>
+                              <th scope="row"><%= element.id %></th>
                               <td><%= element.fullName %></td>
                               <td><%= element.email %></td>
                               <td><%= element.telNo %></td>
@@ -83,7 +84,7 @@
                               </td>
                             </tr>
                       <% }) %>
-                   
+                   <% } %>
                   </tbody>
                 </table>
               

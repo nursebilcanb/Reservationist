@@ -67,18 +67,25 @@
                     </tr>
                   </thead>
                   <tbody>
-                      <% data.forEach((element,index) => { %>
+                    <% if (Array.isArray(data)) { %>
+                      <% data.forEach(element => { %>
                           <tr>
-                              <th scope="row"><%= index+1 %></th>
+                              <th scope="row"><%= element.id %></th>
                               <td><%= element.fullName %></td>
                               <td><%= element.email %></td>
                               <td><%= element.telNo %></td>
                               <td class="text-end text-nowrap">
-                                  <a href="/admin/anc/edit" class="btn btn-primary">Edit</a>
-                                  <a href="/admin/anc/delete/" class="delete-btn btn btn-danger">Delete</a>
+                                  <a href="/admin/panel/customerData/edit/<%= element.id %>" class="btn btn-primary">Edit</a>
+                                  <a href="/admin/panel/customerData/delete/<%= element.id %>" class="delete-btn btn btn-danger">Delete</a>
                               </td>
                             </tr>
                       <% }) %>
+                      <% } else {%>
+                        <tr>
+                            <td colspan="5" class="text-center">No data found</td>
+                        </tr>
+                      <% }%>
+                       
                    
                   </tbody>
                 </table>
