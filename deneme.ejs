@@ -1,0 +1,61 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal fade" data-target="#editModal">
+    Edit
+</button>
+  
+                <!-- Modal -->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <form>
+                              <div class="form-group">
+                                <label for="fullName" class="col-form-label">Full Name</label>
+                                <input type="text" value="<%= data.fullName %>" class="form-control" id="fullName">
+                              </div>
+                              <div class="form-group">
+                                <label for="email" class="col-form-label" >Email</label>
+                                <input type="email" value="<%= data.email %>" class="form-control" id="email" ></input>
+                              </div>
+                              <div class="form-group">
+                                  <label for="telNo" class="col-form-label">Tel No</label>
+                                  <input type="tel" value="<%= data.telNo %>" class="form-control" id="telNo"></input>
+                              </div>
+                             
+                            </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" >Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+               
+                       
+              
+                      <!-- Modal Script -->
+                      <script>
+                          $(document).ready(function() {
+                  // Tablodaki her bir satırı dinle
+                  $('#customerTable tbody tr').click(function() {
+                      // Tıklanan satırdaki verileri al
+                      var fullName = $(this).find('td:eq(0)').text(); // Örneğin, ilk sütundaki veri fullName olsun
+                      var email = $(this).find('td:eq(1)').text(); // İkinci sütundaki veri email olsun
+                      var telNo = $(this).find('td:eq(2)').text(); // Üçüncü sütundaki veri telNo olsun
+              
+                      // Bu verileri modal içindeki form inputlarına yaz
+                      $('#fullName').val(fullName);
+                      $('#email').val(email);
+                      $('#telNo').val(telNo);
+              
+                      // Modalı aç
+                      $('#editModal').modal('show');
+                  });
+              });
+              
+                          </script>

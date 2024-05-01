@@ -10,7 +10,12 @@ exports.servicePage = (req,res)=>{
 exports.menuPage = (req,res)=>{
   res.render('menu.ejs');
 }
-exports.contactPage = (req,res)=>{
+exports.contactPage = async (req,res)=>{
+  // if(req.body != null){
+  //   console.log(req.body);
+  //   await Contact.create(req.body);
+  //   //res.redirect('index');
+  // }
   res.render('contact.ejs');
 }
 exports.bookingPage = (req,res)=>{

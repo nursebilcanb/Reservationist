@@ -3,7 +3,7 @@ const Customer = require('../models/customer');
 exports.getCustomers = async (req, res) => {
   const customers = await Customer.findAll();
   const customerData = customers.map((customer) => customer.dataValues);
-  console.log(customerData);
+  //console.log(customerData);
   return customerData;
 };
 exports.editCustomer = async (req, res) => {

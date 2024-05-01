@@ -7,7 +7,7 @@ router.get('/panel/customerData',adminControllers.getCustomerData);
 router.get('/panel/reservationData',adminControllers.getReservationData);
 router.get('/panel/contactData',adminControllers.getContactData);
 
-router.put('/panel/customerData/edit/:id',adminControllers.editCustomer);
+router.post('/panel/customerData/edit/:id',adminControllers.editCustomer);
 
 
 module.exports=router;
