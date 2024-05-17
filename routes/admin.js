@@ -7,7 +7,15 @@ router.get('/panel/customerData',adminControllers.getCustomerData);
 router.get('/panel/reservationData',adminControllers.getReservationData);
 router.get('/panel/contactData',adminControllers.getContactData);
 
-router.post('/panel/customerData/edit/:id',adminControllers.editCustomer);
+router.post('/panel/customerData/add',adminControllers.addCustomer);
+router.post('/panel/customerData/edit',adminControllers.editCustomer);
+router.post('/panel/customerData/delete',adminControllers.deleteCustomer);
+
+router.post('/panel/contactData/add',adminControllers.addContact); 
+router.post('/panel/contactData/edit',adminControllers.editContact);
+router.post('/panel/contactData/delete',adminControllers.deleteContact);
+
+
 
 
 module.exports=router;

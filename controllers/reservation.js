@@ -5,7 +5,7 @@ exports.getReservations = async (req, res) => {
   const reservationData = reservations.map(
     (reservation) => reservation.dataValues
   );
-  console.log(reservationData);
+  //console.log(reservationData);
   return reservationData;
 };
 

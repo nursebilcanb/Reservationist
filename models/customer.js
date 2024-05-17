@@ -12,6 +12,9 @@ class Customer extends Model {
    */
   static associate(models) {
     // define association here
+    Customer.hasMany(models.Reservation, {
+      foreignKey: 'id',
+    });
   }
 }
 Customer.init(

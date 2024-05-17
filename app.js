@@ -7,6 +7,7 @@ const app = express();
 
 const pageRouter = require('./routes/page');
 const adminRouter = require('./routes/admin');
+const userRouter = require('./routes/user');
 
 app.set("view engine", ejs);
 app.use((req,res,next)=>{
@@ -20,8 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // ROUTES 
-app.use("/user", pageRouter);
+app.use("/page", pageRouter);
 app.use("/admin",adminRouter);
+app.use("/user",userRouter);
 
 
 const port = 3000;

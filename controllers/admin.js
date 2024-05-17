@@ -20,6 +20,33 @@ exports.getContactData = (async(req,res)=>{
 exports.editCustomer = (async(req,res)=>{
     const procCompleted = await customerControllers.editCustomer(req,res);
     console.log("Kullanici basariyla duzenlendi : "+procCompleted);
-    res.render('admin/customer-edit.ejs',{pageTitle:'Admin Panel',contentTitle:'Kullanıcı Düzenle',data:procCompleted});
-    //res.redirect('/admin/panel/customerData');
+    // res.render('admin/customer-edit.ejs',{pageTitle:'Admin Panel',contentTitle:'Kullanıcı Düzenle',data:procCompleted});
+    res.redirect('/admin/panel/customerData');
 })  
+exports.deleteCustomer = async(req,res)=>{
+    const procCompleted = await customerControllers.deleteCustomer(req,res);
+    console.log("Kullanici basariyla silindi : "+procCompleted);
+    res.redirect('/admin/panel/customerData');
+}
+
+exports.editContact = async(req,res)=>{
+    const procCompleted = await contactControllers.editContact(req,res);
+    console.log("Iletisim basariyla duzenlendi : "+procCompleted);
+    res.redirect('/admin/panel/contactData');
+}
+
+exports.deleteContact = async(req,res)=>{
+    const procCompleted = await contactControllers.deleteContact(req,res);
+    console.log("Iletisim basariyla silindi : "+procCompleted);
+    res.redirect('/admin/panel/contactData');
+}
+exports.addCustomer = async(req,res)=>{
+    const procCompleted = await customerControllers.addCustomer(req,res);
+    console.log("Kullanici basariyla eklendi : "+procCompleted);
+    res.redirect('/admin/panel/customerData');
+}
+exports.addContact = async(req,res)=>{
+    const procCompleted = await contactControllers.addContact(req,res);
+    console.log("Iletisim basariyla eklendi : "+procCompleted);
+    res.redirect('/admin/panel/contactData');
+}

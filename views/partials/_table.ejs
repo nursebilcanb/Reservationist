@@ -1,0 +1,200 @@
+<link
+  href="/static/css/table-reservation.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<div
+  style="margin-left: 8%"
+  class="container-xxl py-5 px-0 wow fadeInUp justify-content-center"
+  data-wow-delay="0.1s"
+>
+  <div class="row g-0">
+    <div class="col-md-10 bg-dark d-flex">
+      <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
+        <h5
+          class="section-title ff-secondary text-start text-primary fw-normal"
+        >
+          Reservation
+        </h5>
+        <h1 class="text-white mb-4">Masanı Kendin Seç</h1>
+    
+        <div class="button-container">
+            <% let counter = 1; %>
+            <% for( let row = 0; row < 4; row++ ) { %>
+                <% for( let col = 0; col < 8; col++ ) { %>
+                    <a  class="square-button" data-table="<%= counter %>" data-bs-toggle="modal" data-bs-target="#reservationModal"><%= counter++ %></a>
+                <% } %>
+            <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- jquery -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <!-- Bootstrap core JS-->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"> </script>
+ <!-- Core theme JS-->
+ <script src="/static/admin/js/scripts.js"></script>
+
+ <!-- Reservation Modal -->
+ <div class="modal fade" id="reservationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="staticBackdropLabel">Rezervasyon Oluştur</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <form> 
+       <div class="modal-body">
+        <div class="form-group">
+          <label for="table" class="col-form-label">Masa No:</label>
+          <input type="text" name="table" class="form-control" id="table" disabled >
+        </div>
+         <div class="form-group">
+           <label for="date" class="col-form-label">Tarih:</label>
+           <input type="date" name="date" class="form-control" id="date"  required>
+         </div>
+           <div class="form-group">
+             <label for="time" class="col-form-label">Saat:</label>
+             <input type="time" name="time" class="form-control" id="time" required >
+           </div>
+           <div class="form-group">
+            <label for="fullName" class="col-form-label">Ad-Soyad:</label>
+            <input type="text" name="fullName" class="form-control" id="fullName" required>
+          </div>
+          <div class="form-group">
+            <label for="people" class="col-form-label">Kişi Sayısı:</label>
+            <input type="number" name="people" class="form-control" id="people" required>
+          </div>
+           <div class="form-group">
+               <label for="email" class="col-form-label">Email:</label>
+               <input type="email" name="email" class="form-control" id="email"></input>
+             </div>
+           <div class="form-group">
+             <label for="telNo" class="col-form-label">Tel No:</label>
+             <input type="tel" name="telNo"  class="form-control" id="telNo" required ></input>
+           </div>
+           <div class="form-group">
+            <label for="specialRequest" class="col-form-label">Özel İstek:</label>
+            <input type="text" name="specialRequest" class="form-control" id="specialRequest">
+          </div>
+          <input type="hidden" value="" id="reservationid" name="reservationid">
+       </div>
+       <div class="modal-footer">
+         <!-- <a href="#" id="yes" class="btn btn-danger">Linkli Evet</a>
+         <button id="yes-post" type="submit" class="btn btn-danger ">Post Evet</button> -->
+         <button type="button" id="reserv" class="reservation-btn btn btn-primary"  data-bs-toggle="modal" data-bs-target="#depositModal">İlerle</button>
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+       </div>
+       </form>
+     </div>
+   </div>
+ </div>
+
+ <!-- Deposit Modal -->
+ <div class="modal fade" id="depositModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Depozito Ödeme</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form> 
+      <div class="modal-body">
+       <div class="form-group">
+         <label for="table" class="col-form-label">Masa No:</label>
+         <input type="text" name="table" class="form-control" id="table" disabled >
+       </div>
+       <div class="form-group">
+        <label for="deposit" class="col-form-label">Depozito:</label>
+        <input type="number"  name="deposit" class="form-control" id="deposit" disabled>
+      </div>
+          <div class="form-group">
+           <label for="fullName" class="col-form-label">Ad-Soyad:</label>
+           <input type="text" name="fullName" class="form-control" id="fullName" disabled>
+         </div>
+         <div class="form-group">
+           <label for="people" class="col-form-label">Kişi Sayısı:</label>
+           <input type="number" name="people" class="form-control" id="people" disabled>
+         </div>
+         <input type="hidden" value="" id="depositid" name="depositid">
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="deposit" class="deposit-btn btn btn-primary" >Rezervasyonu Oluştur</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+ <script>
+  $(function () {
+   $(".square-button").click(function (){//listedeki click botununa tıklandığında çalışacak jquery kodları
+     let tableNo = $(this).data('table'); //square butonu üzerinden data-table attribute'u ile bilgiler çekiliyor. 
+     console.log('table no: '+ tableNo );
+     $(".modal-body #table").val(tableNo); //modalbox üzerindeki id id'li label'ın text'i set ediliyor
+   
+     $(".reservation-btn").click(function () {
+     let people = $("#reservationModal .modal-body #people").val();
+     let date = $("#reservationModal .modal-body #date").val();
+     let time = $("#reservationModal .modal-body #time").val();
+     let fullName = $("#reservationModal .modal-body #fullName").val();
+     let email = $("#reservationModal .modal-body #email").val();
+     let telNo = $("#reservationModal .modal-body #telNo").val();
+     let specialRequest = $("#reservationModal .modal-body #specialRequest").val();
+     
+     const deposit = people * 100;
+
+     $("#depositModal .modal-body #deposit").val(deposit);
+     $("#depositModal .modal-body #people").val(people);
+     $("#depositModal .modal-body #fullName").val(fullName);
+
+     $(".deposit-btn").click(function(){
+      $.ajax({
+      url:"/user/reservation/add",
+      type:"POST",
+      data:{
+        tableNo:tableNo,
+        date: date,
+        time:time,
+        fullName: fullName,
+        people:people,
+        email:email,
+        telNo:telNo,
+        specialRequest:specialRequest
+      },
+      success: function(response) {
+            if(response.data) {
+              alert(response.message);
+                window.location.reload();  // Sayfayı yeniden yükleyin
+            } else {
+                alert(response.error);
+            }
+        },
+        error: function() {
+            alert("Hata oluştu. Lütfen tekrar deneyin.");
+        }
+     });
+     })
+    
+
+    // $(".modal-footer #yes").attr("href","/user/index"); // burda göster success i !!!
+   });
+
+    
+
+    //  $(".modal-footer #yes").attr("href","/admin/delete/anc/"+id); //Linkli Evet butonunun href attribute'i set ediliyor
+    //  $(".modal-footer #yes-post").attr("href","/admin/delete/anc"); //Linkli Evet butonunun href attribute'i set ediliyor
+
+   });
+   
+  })
+</script>
+
+ 

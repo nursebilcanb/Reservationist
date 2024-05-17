@@ -17,38 +17,11 @@
     <body>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Reservationist</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/panel/customerData">Müşterileri Listele</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/panel/reservationData">Rezervasyonları Listele</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/panel/contactData">İletişime Geçenler</a>
-                </div>
-            </div>
+           <%- include('_sidebar.ejs') %>
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                    <div class="container-fluid">
-                        <button class="btn btn-primary" id="sidebarToggle">Menüyü Gizle</button>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                                <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#!">Action</a>
-                                        <a class="dropdown-item" href="#!">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#!">Something else here</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+               <%- include('_navbar.ejs') %>
                 <!-- Page content-->
                 <div class="container-fluid">
                   <% if (typeof(contentTitle) != "undefined") { %>
@@ -79,8 +52,12 @@
                               <td><%= element.subject %></td>
                               <td><%= element.message %></td>
                               <td class="text-end text-nowrap">
-                                  <a href="/admin/panel/conctactData/edit/<%= element.id %>" class="btn btn-primary">Edit</a>
-                                  <a href="/admin/panel/conctactData/delete/<%= element.id %>" class="delete-btn btn btn-danger">Delete</a>
+                                  <a href="/admin/panel/contactData/edit/<%= element.id %>" class="edit-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"
+                                        data-id="<%= element.id %>" data-name="<%= element.fullName %>" data-email="<%= element.email %>" 
+                                        data-tel="<%= element.telNo %>" data-subject="<%= element.subject %>" data-message="<%= element.message %>">Edit</a>
+                                  <a href="/admin/panel/contactData/delete/<%= element.id %>" class="delete-btn btn btn-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="<%= element.id %>" data-name="<%= element.fullName %>" data-email="<%= element.email %>" 
+                                    data-tel="<%= element.telNo %>" data-subject="<%= element.subject %>" data-message="<%= element.message %>">Delete</a>
                               </td>
                             </tr>
                       <% }) %>
@@ -91,10 +68,141 @@
               </div>
             </div>
         </div>
+
+        <!-- jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="/static/admin/js/scripts.js"></script>
+
+
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Kullanıcı Düzenle</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+  
+                <form action="/admin/panel/contactData/edit" method="POST"> 
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="id" class="col-form-label">Customer Id:</label>
+                    <input type="text" class="form-control" id="id" disabled >
+                  </div>
+                    <div class="form-group">
+                      <label for="fullName" class="col-form-label">Full Name:</label>
+                      <input type="text" name="fullName" class="form-control" id="fullName" >
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">Email:</label>
+                        <input type="email" name="email" class="form-control" id="email"  ></input>
+                      </div>
+                    <div class="form-group">
+                      <label for="telNo" class="col-form-label">Tel No:</label>
+                      <input type="tel" name="telNo"  class="form-control" id="telNo" ></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" class="col-form-label">Subject:</label>
+                        <input type="text" name="subject"  class="form-control" id="subject" ></input>
+                      </div>
+                  <div class="form-group">
+                    <label for="message" class="col-form-label">Message:</label>
+                    <input type="text" name="message"  class="form-control" id="message" ></input>
+                    </div>
+                    <input type="hidden" value="" id="contactid" name="contactid">
+                </div>
+                <div class="modal-footer">
+                  <!-- <a href="#" id="yes" class="btn btn-danger">Linkli Evet</a>
+                  <button id="yes-post" type="submit" class="btn btn-danger ">Post Evet</button> -->
+                  <button id="yes" class="btn btn-primary">Save Changes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                 
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delete Modal -->
+         <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Kullanıcı Silme Onay Ekranı</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+  
+                <form action="/admin/panel/contactData/delete" method="POST"> 
+                  <div class="modal-body">
+                    <p class="fw-bold ">Contact Id:<label id="id" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Contact Name:<label id="fullName" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Contact Email:<label id="email" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Contact Tel No:<label id="telNo" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Contact Subject:<label id="subject" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Contact Message:<label id="message" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Kaydı silmek istediğinizden emin misiniz?</p>
+                    <input type="hidden" value="" id="contactid" name="contactid">
+                  </div>
+                  <div class="modal-footer">
+                    <button id="yes" type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+  
+          <script>
+            $(function () {
+             $(".edit-btn").click(function (){//listedeki click botununa tıklandığında çalışacak jquery kodları
+               let id = $(this).data('id'); //edit butonu üzerinden data-id ve data-title attribute'leri ile bilgiler çekiliyor. 
+               let fullName = $(this).data('name');
+               let email = $(this).data('email');
+               let telNo = $(this).data('tel');
+               let subject = $(this).data('subject');
+               let message = $(this).data('message');
+
+               console.log('fullname,email,telNo,subject,message: '+ fullName + email +  telNo + subject + message);
+
+               $(".modal-body #id").val(id); //modalbox üzerindeki id id'li label'ın text'i set ediliyor
+               $(".modal-body #fullName").val(fullName); 
+               $(".modal-body #email").val(email); 
+               $(".modal-body #telNo").val(telNo); 
+               $(".modal-body #subject").val(subject); 
+               $(".modal-body #message").val(message); 
+
+
+               $(".modal-footer #yes").attr("href","/admin/panel/contactData/edit");
+
+               $(".modal-body #contactid").attr("value",id); //hidden input'un value değeri anouncemnet id'ye set ediliyor.
+             });
+
+             $(".delete-btn").click(function (){
+               let id = $(this).data('id'); //delete butonu üzerinden data-id ve data-title attribute'leri ile bilgiler çekiliyor. 
+               let fullName = $(this).data('name');
+               let email = $(this).data('email');
+               let telNo = $(this).data('tel');
+               let subject = $(this).data('subject');
+               let message = $(this).data('message');
+
+               console.log('fullname,email,telNo,subject,message: '+ fullName + email +  telNo + subject + message);
+
+               $(".modal-body #id").text(id); //modalbox üzerindeki id id'li label'ın text'i set ediliyor
+               $(".modal-body #fullName").text(fullName); 
+               $(".modal-body #email").text(email); 
+               $(".modal-body #telNo").text(telNo); 
+               $(".modal-body #subject").text(subject);
+               $(".modal-body #message").text(message);
+
+               $(".modal-footer #yes").attr("href","/admin/panel/contactData/delete");
+               $(".modal-body #contactid").attr("value",id); //hidden input'un value değeri anouncemnet id'ye set ediliyor.
+             });
+            });
+          </script>
+  
     </body>
 </html>
 
