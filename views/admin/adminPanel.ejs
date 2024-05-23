@@ -34,15 +34,13 @@
                         Müşteri Ekle
                       </button>
                       <button class="contact-btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#contactCollapse" aria-expanded="false" aria-controls="contactCollapse">
-                        İletişime Geçenleri Ekle
+                        İletişim Bilgileri Ekle
+                      </button>
+                      <button class="reservation-btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#reservationCollapse" aria-expanded="false" aria-controls="reservationCollapse">
+                        Rezervasyon Ekle
                       </button>
                 </div>
                 <p></p>
-                <!-- <p>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#customerCollapse" aria-expanded="false" aria-controls="customerCollapse">
-                        Müşteri Ekle
-                      </button>
-                </p> -->
                 <div class="collapse col-8 " id="customerCollapse">
                     <div class="card card-body">
                         <form action="/admin/panel/customerData/add" method="POST"> 
@@ -78,11 +76,7 @@
                 </div>
 
                 <p></p>
-                <!-- <p>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#contactCollapse" aria-expanded="false" aria-controls="contactCollapse">
-                        İletişime Geçenleri Ekle
-                      </button>
-                </p> -->
+
                 <div class="collapse col-8" id="contactCollapse">
                     <div class="card card-body">
                         <form action="/admin/panel/contactData/add" method="POST"> 
@@ -126,6 +120,65 @@
                             </form>
                     </div>
                   </div>
+
+                  <p></p>
+
+                  <div class="collapse col-8" id="reservationCollapse">
+                      <div class="card card-body">
+                          <form action="/admin/panel/reservationData/add" method="POST"> 
+                              <div class="card-title ">
+                                  <h5 class="card-title">Rezervasyon Ekle</h5>
+                              </div>
+                              <div class="card-body ">
+                                <div class="form-group">
+                                  <label for="id" class="col-form-label">Reservation Id:</label>
+                                  <input value="atanmadı" name="id" type="text" class="form-control" id="id" disabled >
+                                </div>
+                                <div class="form-group">
+                                  <label for="tableNo" class="col-form-label">Table No:</label>
+                                  <input value="atanmadı" name="tableNo" type="number" class="form-control" id="tableNo" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="date" class="col-form-label">Date:</label>
+                                  <input value="atanmadı" name="date" type="date" class="form-control" id="date" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="time" class="col-form-label">Time:</label>
+                                  <input value="atanmadı" name="time" type="time" class="form-control" id="time" required>
+                                </div>
+                                  <div class="form-group">
+                                    <label for="fullName" class="col-form-label">Full Name:</label>
+                                    <input type="text" name="fullName" class="form-control" id="fullName" required >
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="people" class="col-form-label">People:</label>
+                                    <input type="number" name="people" class="form-control" id="people" required >
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="email" class="col-form-label">Email:</label>
+                                      <input type="email" name="email" class="form-control" id="email"  required></input>
+                                    </div>
+                                  <div class="form-group">
+                                    <label for="telNo" class="col-form-label">Tel No:</label>
+                                    <input type="tel" name="telNo"  class="form-control" id="telNo" required></input>
+                                  </div>
+                               
+                                <div class="form-group">
+                                  <label for="specialRequest" class="col-form-label">Special Request:</label>
+                                  <input type="text" name="specialRequest"  class="form-control" id="specialRequest" required ></input>
+                                  </div>
+                                  <input type="hidden" value="" id="reservationid" name="reservationid">
+                              </div>
+                              <div class="card-footer">
+                                <!-- <a href="#" id="yes" class="btn btn-danger">Linkli Evet</a>
+                                <button id="yes-post" type="submit" class="btn btn-danger ">Post Evet</button> -->
+                                <button id="yes" type="submit" class="btn btn-primary">Add</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                               
+                              </div>
+                              </form>
+                      </div>
+                    </div>
                     
                 </div>
             </div>

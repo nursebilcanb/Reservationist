@@ -32,7 +32,7 @@
                 <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">#Id</th>
                         <th scope="col">Table No</th>
                         <th scope="col">Reservation Date</th>
                         <th scope="col">Reservation Time</th>
@@ -50,7 +50,7 @@
                             <tr>
                                 <th scope="row"><%= element.id %></th>
                                 <td><%= element.tableNo %></td>
-                                <td><%= element.date %></td>
+                                <td><%= element.formattedDate %></td>
                                 <td><%= element.time %></td>
                                 <td><%= element.fullName %></td>
                                 <td><%= element.people %></td>
@@ -58,8 +58,14 @@
                                 <td><%= element.telNo %></td>
                                 <td><%= element.specialRequest %></td>
                                 <td class="text-end text-nowrap">
-                                    <a href="/admin/panel/reservationData/edit/<%= element.id %>" class="btn btn-primary">Edit</a>
-                                    <a href="/admin/panel/reservationData/delete/<%= element.id %>" class="delete-btn btn btn-danger">Delete</a>
+                                    <a href="/admin/panel/reservationData/edit/<%= element.id %>" class="edit-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"
+                                        data-id="<%= element.id %>" data-table="<%= element.tableNo %>" data-date ="<%= element.formattedDate %>" data-time="<%= element.time %>"
+                                        data-name="<%= element.fullName %>" data-people="<%= element.people %>" data-email="<%= element.email %>" 
+                                        data-tel="<%= element.telNo %>" data-request="<%= element.specialRequest %>">Edit</a>
+                                    <a href="/admin/panel/reservationData/delete/<%= element.id %>" class="delete-btn btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                        data-id="<%= element.id %>" data-table="<%= element.tableNo %>" data-date ="<%= element.formattedDate %>" data-time="<%= element.time %>"
+                                        data-name="<%= element.fullName %>" data-people="<%= element.people %>" data-email="<%= element.email %>" 
+                                        data-tel="<%= element.telNo %>" data-request="<%= element.specialRequest %>">Delete</a>
                                 </td>
                               </tr>
                         <% }) %>
@@ -70,10 +76,168 @@
                 </div>
             </div>
         </div>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="/static/admin/js/scripts.js"></script>
+          <!-- jquery -->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <!-- Bootstrap core JS-->
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+          <!-- Core theme JS-->
+          <script src="/static/admin/js/scripts.js"></script>
+
+           <!-- Edit Modal -->
+        <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Rezervasyon Düzenle</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+  
+                <form action="/admin/panel/reservationData/edit" method="POST"> 
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="id" class="col-form-label">Reservation Id:</label>
+                    <input type="text" class="form-control" id="id" disabled >
+                  </div>
+                  <div class="form-group">
+                    <label for="tableNo" class="col-form-label">Table No:</label>
+                    <input type="number" name="tableNo" class="form-control" id="tableNo" >
+                  </div>
+                  <div class="form-group">
+                    <label for="date" class="col-form-label">Date:</label>
+                    <input type="date" name="date" class="form-control" id="date" >
+                  </div>
+                  <div class="form-group">
+                    <label for="time" class="col-form-label">Time:</label>
+                    <input type="time" name="time" class="form-control" id="time" >
+                  </div>
+                    <div class="form-group">
+                      <label for="fullName" class="col-form-label">Full Name:</label>
+                      <input type="text" name="fullName" class="form-control" id="fullName" >
+                    </div>
+                    <div class="form-group">
+                        <label for="people" class="col-form-label">People:</label>
+                        <input type="number" name="people" class="form-control" id="people" >
+                      </div>
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">Email:</label>
+                        <input type="email" name="email" class="form-control" id="email"  ></input>
+                      </div>
+                    <div class="form-group">
+                      <label for="telNo" class="col-form-label">Tel No:</label>
+                      <input type="tel" name="telNo"  class="form-control" id="telNo" ></input>
+                    </div>
+               
+                  <div class="form-group">
+                    <label for="specialRequest" class="col-form-label">Special Request:</label>
+                    <input type="text" name="specialRequest"  class="form-control" id="specialRequest" ></input>
+                    </div>
+                    <input type="hidden" value="" id="reservationid" name="reservationid">
+                </div>
+                <div class="modal-footer">
+                  <!-- <a href="#" id="yes" class="btn btn-danger">Linkli Evet</a>
+                  <button id="yes-post" type="submit" class="btn btn-danger ">Post Evet</button> -->
+                  <button id="yes" class="btn btn-primary">Save Changes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                 
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delete Modal -->
+         <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Rezervasyon Silme Onay Ekranı</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+  
+                <form action="/admin/panel/reservationData/delete" method="POST"> 
+                  <div class="modal-body">
+                    <p class="fw-bold ">Reservation Id:<label id="id" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Table No:<label id="tableNo" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Reservation Date:<label id="date" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Reservation Time:<label id="time" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Full Name:<label id="fullName" class="fw-bold "></label></p>
+                    <p class="fw-bold ">People:<label id="people" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Email:<label id="email" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Tel No:<label id="telNo" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Special Request:<label id="specialRequest" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Kaydı silmek istediğinizden emin misiniz?</p>
+                    <input type="hidden" value="" id="reservationid" name="reservationid">
+                  </div>
+                  <div class="modal-footer">
+                    <button id="yes" type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            $(function () {
+             $(".edit-btn").click(function (){//listedeki click botununa tıklandığında çalışacak jquery kodları
+               let id = $(this).data('id'); //edit butonu üzerinden data-id ve data-title attribute'leri ile bilgiler çekiliyor. 
+               let tableNo = $(this).data('table');
+               let time = $(this).data('time');
+               let date = $(this).data('date');
+               let fullName = $(this).data('name');
+               let people = $(this).data('people');
+               let email = $(this).data('email');
+               let telNo = $(this).data('tel');
+               let specialRequest = $(this).data('request');
+
+
+               console.log('tableNo,fullname,email,telNo '+ tableNo + fullName +  email + telNo );
+
+               $(".modal-body #id").val(id); //modalbox üzerindeki id id'li label'ın text'i set ediliyor
+               $(".modal-body #tableNo").val(tableNo); 
+               $(".modal-body #date").val(date); 
+               $(".modal-body #time").val(time); 
+               $(".modal-body #fullName").val(fullName); 
+               $(".modal-body #people").val(people); 
+               $(".modal-body #email").val(email); 
+               $(".modal-body #telNo").val(telNo); 
+               $(".modal-body #specialRequest").val(specialRequest); 
+
+
+               $(".modal-footer #yes").attr("href","/admin/panel/reservationData/edit");
+
+               $(".modal-body #reservationid").attr("value",id); //hidden input'un value değeri anouncemnet id'ye set ediliyor.
+             });
+
+             $(".delete-btn").click(function (){
+               let id = $(this).data('id'); //delete butonu üzerinden data-id ve data-title attribute'leri ile bilgiler çekiliyor. 
+               let tableNo = $(this).data('table');
+               let time = $(this).data('time');
+               let date = $(this).data('date');
+               let fullName = $(this).data('name');
+               let people = $(this).data('people');
+               let email = $(this).data('email');
+               let telNo = $(this).data('tel');
+               let specialRequest = $(this).data('request');
+
+               console.log('tableNo,fullname,email,telNo '+ tableNo + fullName +  email + telNo );
+
+               $(".modal-body #id").text(id); //modalbox üzerindeki id id'li label'ın text'i set ediliyor
+               $(".modal-body #tableNo").text(tableNo); 
+               $(".modal-body #date").text(date); 
+               $(".modal-body #time").text(time); 
+               $(".modal-body #fullName").text(fullName); 
+               $(".modal-body #people").text(people); 
+               $(".modal-body #email").text(email); 
+               $(".modal-body #telNo").text(telNo); 
+               $(".modal-body #specialRequest").text(specialRequest); 
+
+               $(".modal-footer #yes").attr("href","/admin/panel/reservationData/delete");
+               $(".modal-body #reservationid").attr("value",id); //hidden input'un value değeri anouncemnet id'ye set ediliyor.
+             });
+            });
+          </script>
+  
     </body>
 </html>
 
