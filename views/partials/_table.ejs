@@ -48,6 +48,8 @@
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
        </div>
        <form> 
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
        <div class="modal-body">
         <div class="form-group">
           <label for="table" class="col-form-label">Masa No:</label>
@@ -103,6 +105,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form> 
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
       <div class="modal-body">
        <div class="form-group">
          <label for="table" class="col-form-label">Masa No:</label>
@@ -179,8 +183,18 @@
         },
         error: function() {
             alert("Hata oluştu. Lütfen tekrar deneyin.");
+            window.location.reload();
         }
      });
+
+     $.ajax({
+      url:"/user/deposit/add",
+      type:"POST",
+      data: {
+        date:date,
+        quantity:deposit
+      }
+     },console.log("deposit gönderildi"))
      })
     
 

@@ -14,28 +14,28 @@
                 <a href="/page/about" class="nav-item nav-link">About</a>
                 <a href="/page/service" class="nav-item nav-link">Service</a>
                 <a href="/page/menu" class="nav-item nav-link">Menu</a>
-                <div class="nav-item dropdown">
+                <!-- <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu m-0">
                         <a href="/page/booking" class="dropdown-item">Booking</a>
                         <a href="/page/team" class="dropdown-item">Our Team</a>
                         <a href="/page/testimonial" class="dropdown-item">Testimonial</a>
                     </div>
-                </div>
+                </div> -->
                 <a href="/page/contact" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="" class="btn btn-primary py-2 px-4">Book A Table</a>
+            <a href="/page/index" class="btn btn-primary py-2 px-4">Book A Table</a>
         </div>
     </nav>
 
     <div class="container-xxl py-5 bg-dark hero-header mb-5">
         <div class="container text-center my-5 pt-5 pb-4">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">About Us</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown"><%= pageTitle %></h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">About</li>
+                    <li class="breadcrumb-item text-white active" aria-current="page"><%= location %></li>
                 </ol>
             </nav>
         </div>

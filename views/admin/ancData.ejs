@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>
+            <% if (typeof(pageTitle) != "undefined") { %>
+            <h1 class="mt-4"><%= pageTitle %></h1>
+        <% } %></title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="/static/admin/assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/static/admin/css/styles.css" rel="stylesheet" />
+
+        <style>
+          .image-preview {
+              max-width: 100px;
+              max-height: 100px;
+          }
+      </style>
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+           <%- include('_sidebar.ejs') %>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Top navigation-->
+               <%- include('_navbar.ejs') %>
+                <!-- Page content-->
+                <div class="container-fluid">
+                  <% if (typeof(contentTitle) != "undefined") { %>
+                      <h1 class="mt-4"> <%= contentTitle %></h1>
+                  <% } %>
+                <p></p>
+                <p></p>
+              <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">#Id</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Content</th>
+                      <th scope="col" class="text-center ">Processing</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (Array.isArray(data)) { %>
+                      <% data.forEach(element => { %>
+                          <tr>
+                              <th scope="row"><%= element.id %></th>
+                              <td><%= element.title %></td>
+                              <td><img src="/static/img/anc/<%= element.image %>" style="height: 100px;"></td>
+                              <td><%= element.content %></td>
+
+                              <td class="text-end text-nowrap">
+                                <a href="/admin/panel/ancData/edit/<%= element.id %>" class="edit-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"
+                                  data-id="<%= element.id %>" data-image="/static/img/anc/<%= element.image %>" data-title="<%= element.title %>" data-content="<%= element.content %>">Edit</a>
+                                  <a href="/admin/panel/ancData/delete/<%= element.id %>" class="delete-btn btn btn-danger" data-image="/static/img/anc/<%= element.image %>" data-title="<%= element.title %>" data-content="<%= element.content %>" data-id="<%= element.id %>"  data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                   >Delete</a>
+                              </td>
+                            </tr>
+                      <% }) %>
+                   <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+
+        <!-- jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/static/admin/js/scripts.js"></script>
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Duyuru Düzenle</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form action="/admin/panel/ancData/edit" method="POST" > 
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="id" class="col-form-label">Duyuru Id:</label>
+          <input type="text" class="form-control" id="id" disabled >
+        </div>
+          <div class="form-group">
+            <label for="title" class="col-form-label">Duyuru Title:</label>
+            <input type="text" name="title" class="form-control" id="title" >
+          </div>
+          <div class="form-group">
+              <label for="imageInput" class="col-form-label">Duyuru Photo:</label>
+              <input type="file" name="image" class="form-control" id="imageInput"  ><img name="imagePreview" id="imagePreview" class="image-preview" src=""></input>
+            </div>
+            <div class="form-group">
+              <label for="content" class="col-form-label">Duyuru Content:</label>
+              <input type="text" name="content" class="form-control" id="content" >
+            </div>
+          <input type="hidden" value="" id="ancid" name="ancid">
+      </div>
+
+      <div class="modal-footer">
+        <button id="yes" class="btn btn-primary">Save Changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+        
+
+          <!-- Delete Modal -->
+         <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Duyuru Silme Onay Ekranı</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+  
+                <form action="/admin/panel/ancData/delete" method="POST"> 
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <div class="modal-body">
+                    <p class="fw-bold ">Duyuru Id: <label id="id" class="fw-bold "></label></p>
+                    <p class="fw-bold "> Duyuru Title: <label id="title" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Duyuru Photo: <label  id="imageLabel" class="fw-bold "><img id="imagePreviewDelete" class="image-preview" src=""></label></p>
+                    <p class="fw-bold "> Duyuru Content: <label id="contentD" class="fw-bold "></label></p>
+                    <p class="fw-bold ">Kaydı silmek istediğinizden emin misiniz?</p>
+                    <input type="hidden" value="" id="ancid" name="ancid">
+                  </div>
+                  <div class="modal-footer">
+                    <button id="yes" type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+  
+          <script>
+            $(function () {
+              $(".edit-btn").click(function (){//listedeki click botununa tıklandığında çalışacak jquery kodları
+               let id = $(this).data('id'); //edit butonu üzerinden data-id ve data-title attribute'leri ile bilgiler çekiliyor. 
+               let title = $(this).data('title');
+               let image = $(this).data('image');
+               let content = $(this).data('content');
+
+
+               $('#imagePreview').attr('src', image);
+
+          
+               $(".modal-body #id").val(id); //modalbox üzerindeki id id'li label'ın text'i set ediliyor
+               $(".modal-body #title").val(title); 
+               $(".modal-body #content").val(content); 
+
+
+
+               $(".modal-footer #yes").attr("href","/admin/panel/ancData/edit");
+
+               $(".modal-body #ancid").attr("value",id); //hidden input'un value değeri anouncemnet id'ye set ediliyor.
+             });
+
+             $(".delete-btn").click(function (){
+               let id = $(this).data('id'); //delete butonu üzerinden data-id ve data-title attribute'leri ile bilgiler çekiliyor. 
+               let image = $(this).data('image');
+               let title = $(this).data('title');
+               let content = $(this).data('content');
+               
+
+
+                $('#imagePreviewDelete').attr('src', image);
+
+               $(".modal-body #id").text(id); //modalbox üzerindeki id id'li label'ın text'i set ediliyor
+               $(".modal-body #title").text(title); 
+               $(".modal-body #contentD").text(content); 
+
+
+               $(".modal-footer #yes").attr("href","/admin/panel/ancData/delete");
+               $(".modal-body #ancid").attr("value",id); //hidden input'un value değeri anouncemnet id'ye set ediliyor.
+             });
+            });
+          </script>
+  
+    </body>
+</html>
+
+
+
+
+
+

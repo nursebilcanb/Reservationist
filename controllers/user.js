@@ -2,7 +2,7 @@ const { Op, STRING, INTEGER } = require('sequelize');
 
 const Contact = require('../models/contact');
 const Reservation = require('../models/reservation');
-const { error, data } = require('jquery');
+const Deposit = require('../models/deposit');
 
 // exports.addContact = async (req, res) => {
 //   const newContact = await Contact.create({
@@ -18,9 +18,11 @@ const { error, data } = require('jquery');
 
 exports.createContact = async (req, res) => {
   try {
+    const csrfToken = req.csrfToken();
+
     console.log(req.body);
     await Contact.create({ ...req.body });
-    res.render('contact-success.ejs');
+    res.render('contact-success.ejs',{pageTitle:'Contact', location:'CONTACT',csrfToken:csrfToken});
   } catch (error) {
     console.error('Form gönderilirken bir hata oluştu:', error);
     res.status(500).send('Form gönderilirken bir hata oluştu.');
@@ -28,19 +30,27 @@ exports.createContact = async (req, res) => {
 };
 exports.createReservation = async (req, res) => {
   try {
+  const csrfToken = req.csrfToken();
+
     const success = true;
     const message = 'Rezervasyonunuz Oluşturuldu';
     const error = 'Rezervasyonunuz Oluşturulamadı';
 
     await Reservation.create({ ...req.body });
-    res.send({ data: success, message: message, error: error });
+    res.send({ data: success, message: message, error: error ,csrfToken:csrfToken});
 
-    //res.render("reservation-success.ejs");
   } catch (error) {
     console.error('Form gönderilirken bir hata oluştu:', error);
     res.status(500).send('Form gönderilirken bir hata oluştu.');
   }
 };
+
+exports.addDeposit = async(req,res)=>{
+  const newDeposit = await Deposit.create({quantity :  req.body.quantity, date: req.body.date});
+  console.log("Depozito eklendi : " + newDeposit.quantity);
+  return newDeposit;
+}
+
 
 exports.controlReservation = async (req, res) => {
   const splitedTime = req.body.time.split(':');

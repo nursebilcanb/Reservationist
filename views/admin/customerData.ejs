@@ -83,6 +83,7 @@
               </div>
 
               <form action="/admin/panel/customerData/edit" method="POST"> 
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               <div class="modal-body">
                 <div class="form-group">
                   <label for="id" class="col-form-label">Customer Id:</label>
@@ -124,6 +125,7 @@
               </div>
 
               <form action="/admin/panel/customerData/delete" method="POST"> 
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="modal-body">
                   <p class="fw-bold ">Customer Id:<label id="id" class="fw-bold "></label></p>
                   <p class="fw-bold ">Customer Name:<label id="fullName" class="fw-bold "></label></p>

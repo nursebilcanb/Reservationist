@@ -93,6 +93,7 @@
                 </div>
   
                 <form action="/admin/panel/reservationData/edit" method="POST"> 
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="modal-body">
                   <div class="form-group">
                     <label for="id" class="col-form-label">Reservation Id:</label>
@@ -155,6 +156,7 @@
                 </div>
   
                 <form action="/admin/panel/reservationData/delete" method="POST"> 
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                   <div class="modal-body">
                     <p class="fw-bold ">Reservation Id:<label id="id" class="fw-bold "></label></p>
                     <p class="fw-bold ">Table No:<label id="tableNo" class="fw-bold "></label></p>

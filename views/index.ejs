@@ -26,24 +26,35 @@
                         <a href="/page/about" class="nav-item nav-link">About</a>
                         <a href="/page/service" class="nav-item nav-link">Service</a>
                         <a href="/page/menu" class="nav-item nav-link">Menu</a>
-                        <div class="nav-item dropdown">
+                        <!-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
                                 <a href="/page/booking" class="dropdown-item">Booking</a>
                                 <a href="/page/team" class="dropdown-item">Our Team</a>
                                 <a href="/page/testimonial" class="dropdown-item">Testimonial</a>
                             </div>
-                        </div>
+                        </div> -->
                         <a href="/page/contact" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="" class="btn btn-primary py-2 px-4">Book A Table</a>
+                    <a href="/page/index" class="btn btn-primary py-2 px-4">Book A Table</a>
                 </div>
             </nav>
 
             <div class="container-xxl py-4  bg-dark hero-header mb-5">
                 <div class="container my-5 py-2">
+                    <!-- <div class="row align-items-center g-5">
+                        <div class="col-lg-6 text-center text-lg-start">
+                            <h1 class="display-6  text-white animated slideInLeft">Ziyaretçi Sayısı<br></h1>
+                            <h1 class="display-6  text-white animated slideInLeft"><%= visitorCount %></h1>
+                     
+                        </div>
+                     
+                    </div> -->
                     <div class="row align-items-center g-5">
                         <div class="col-lg-6 text-center text-lg-start">
+                            <h1 class="display-6  text-white animated slideInLeft">Ziyaretçi Sayısı<br></h1>
+                            <h1 class="display-6  text-white animated slideInLeft"><%= visitorCount %></h1>
+                            <br>
                             <h1 class="display-3 text-white animated slideInLeft">Enjoy Our<br>Delicious Meal</h1>
                             <p class="text-white animated slideInLeft mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
                             <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
@@ -60,7 +71,31 @@
         <!-- Table Reservation -->
         <%- include('./partials/_table.ejs') %>
         
-     
+        <div class="container-xxl pt-5 pb-3">
+            <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Duyurular</h5>
+        </div>
+        </div>
+        </div>
+
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <% data.forEach((element, index) => { %>
+                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                        <img src="/static/img/anc/<%= element.image %>" class="d-block w-100" alt="...">
+                    </div>
+                <% }) %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
 
         <%- include('partials/_faq.ejs') %>
         <p></p>

@@ -30,6 +30,7 @@
                 <p></p>
                 <p></p>
                 <div class="container-fluid ">
+     
                     <button class="customer-btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#customerCollapse" aria-expanded="false" aria-controls="customerCollapse">
                         Müşteri Ekle
                       </button>
@@ -39,11 +40,26 @@
                       <button class="reservation-btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#reservationCollapse" aria-expanded="false" aria-controls="reservationCollapse">
                         Rezervasyon Ekle
                       </button>
+                      <button class="reservation-btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#galleryCollapse" aria-expanded="false" aria-controls="galleryCollapse">
+                        Galeri Fotoğraf Ekle
+                      </button>
+                      <button class="reservation-btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#breakfastCollapse" aria-expanded="false" aria-controls="breakfastCollapse">
+                        Breakfast Fotoğraf Ekle
+                      </button>
+                      <button class="reservation-btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#dinnerCollapse" aria-expanded="false" aria-controls="dinnerCollapse">
+                        Dinner Fotoğraf Ekle
+                      </button>
+                      <button class="reservation-btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#ancCollapse" aria-expanded="false" aria-controls="ancCollapse">
+                        Duyuru Ekle
+                      </button>
+
+                      <!-- <button type="submit" class="_btn_04"  ><a href="/admin/panel/register">KAyıt ol</a></button> -->
                 </div>
                 <p></p>
                 <div class="collapse col-8 " id="customerCollapse">
                     <div class="card card-body">
                         <form action="/admin/panel/customerData/add" method="POST"> 
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <div class="card-title ">
                                 <h5 class="card-title">Müşteri Ekle</h5>
                             </div>
@@ -80,6 +96,7 @@
                 <div class="collapse col-8" id="contactCollapse">
                     <div class="card card-body">
                         <form action="/admin/panel/contactData/add" method="POST"> 
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <div class="card-title ">
                                 <h5 class="card-title">İletişime Geçenleri Ekle</h5>
                             </div>
@@ -126,6 +143,7 @@
                   <div class="collapse col-8" id="reservationCollapse">
                       <div class="card card-body">
                           <form action="/admin/panel/reservationData/add" method="POST"> 
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                               <div class="card-title ">
                                   <h5 class="card-title">Rezervasyon Ekle</h5>
                               </div>
@@ -179,7 +197,142 @@
                               </form>
                       </div>
                     </div>
-                    
+
+                    <p></p>
+
+                    <div class="collapse col-8" id="galleryCollapse">
+                        <div class="card card-body">
+                            <form action="/admin/panel/galleryData/add" method="POST" enctype="multipart/form-data"> 
+                              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <div class="card-title ">
+                                    <h5 class="card-title">Galeri Fotoğraf Ekle</h5>
+                                </div>
+                                <div class="card-body ">
+                                  <div class="form-group">
+                                    <label for="id" class="col-form-label">Photo Id:</label>
+                                    <input value="atanmadı" type="text" class="form-control" id="id" disabled >
+                                  </div>
+                                    <div class="form-group">
+                                      <label for="photo" class="col-form-label">Image:</label>
+                                      <input type="file" name="photo" class="form-control" id="photo" required >
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="name" class="col-form-label">Photo Name:</label>
+                                      <input type="text" name="name" class="form-control" id="name" required >
+                                    </div>
+                                    <input type="hidden" value="" id="galleryid" name="galleryid">
+                                </div>
+                                <div class="card-footer">
+                                  <button id="yes" type="submit" class="btn btn-primary">Add</button>
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                                </form>
+                        </div>
+                      </div>
+                      <p></p>
+
+                      <div class="collapse col-8" id="breakfastCollapse">
+                          <div class="card card-body">
+                              <form action="/admin/panel/breakfastData/add" method="POST" enctype="multipart/form-data"> 
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                  <div class="card-title ">
+                                      <h5 class="card-title">Breakfast Fotoğraf Ekle</h5>
+                                  </div>
+                                  <div class="card-body ">
+                                    <div class="form-group">
+                                      <label for="id" class="col-form-label">Photo Id:</label>
+                                      <input value="atanmadı" type="text" class="form-control" id="id" disabled >
+                                    </div>
+                                      <div class="form-group">
+                                        <label for="photo" class="col-form-label">Image:</label>
+                                        <input type="file" name="photo" class="form-control" id="photo" required >
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="name" class="col-form-label">Photo Name:</label>
+                                        <input type="text" name="name" class="form-control" id="name" required >
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="price" class="col-form-label">Product Price:</label>
+                                        <input type="number" name="price" class="form-control" id="price" required >
+                                      </div>
+                                      <input type="hidden" value="" id="breakfastid" name="breakfastid">
+                                  </div>
+                                  <div class="card-footer">
+                                    <button id="yes" type="submit" class="btn btn-primary">Add</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  </div>
+                                  </form>
+                          </div>
+                        </div>
+
+                        <p></p>
+
+                        <div class="collapse col-8" id="dinnerCollapse">
+                            <div class="card card-body">
+                                <form action="/admin/panel/dinnerData/add" method="POST" enctype="multipart/form-data">
+                                  <input type="hidden" name="_csrf" value="<%= csrfToken %>"> 
+                                    <div class="card-title ">
+                                        <h5 class="card-title">Dinner Fotoğraf Ekle</h5>
+                                    </div>
+                                    <div class="card-body ">
+                                      <div class="form-group">
+                                        <label for="id" class="col-form-label">Photo Id:</label>
+                                        <input value="atanmadı" type="text" class="form-control" id="id" disabled >
+                                      </div>
+                                        <div class="form-group">
+                                          <label for="photo" class="col-form-label">Image:</label>
+                                          <input type="file" name="photo" class="form-control" id="photo" required >
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="name" class="col-form-label">Photo Name:</label>
+                                          <input type="text" name="name" class="form-control" id="name" required >
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="price" class="col-form-label">Product Price:</label>
+                                          <input type="number" name="price" class="form-control" id="price" required >
+                                        </div>
+                                        <input type="hidden" value="" id="dinnerid" name="dinnerid">
+                                    </div>
+                                    <div class="card-footer">
+                                      <button id="yes" type="submit" class="btn btn-primary">Add</button>
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                    </form>
+                            </div>
+                          </div>
+                          <div class="collapse col-8" id="ancCollapse">
+                            <div class="card card-body">
+                                <form action="/admin/panel/ancData/add" method="POST" enctype="multipart/form-data"> 
+                                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <div class="card-title ">
+                                        <h5 class="card-title">Duyuru Ekle</h5>
+                                    </div>
+                                    <div class="card-body ">
+                                      <div class="form-group">
+                                        <label for="id" class="col-form-label">Duyuru Id:</label>
+                                        <input value="atanmadı" type="text" class="form-control" id="id" disabled >
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="title" class="col-form-label">Duyuru Title:</label>
+                                        <input type="text" name="title" class="form-control" id="title" required >
+                                      </div>
+                                        <div class="form-group">
+                                          <label for="photo" class="col-form-label">Duyuru Image:</label>
+                                          <input type="file" name="photo" class="form-control" id="photo" required >
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="content" class="col-form-label">Duyuru Content:</label>
+                                          <input type="text" name="content" class="form-control" id="content" required >
+                                        </div>
+                                        <input type="hidden" value="" id="ancid" name="ancid">
+                                    </div>
+                                    <div class="card-footer">
+                                      <button id="yes" type="submit" class="btn btn-primary">Add</button>
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                    </form>
+                            </div>
+                          </div>
                 </div>
             </div>
         </div>
