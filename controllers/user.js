@@ -30,14 +30,14 @@ exports.createContact = async (req, res) => {
 };
 exports.createReservation = async (req, res) => {
   try {
-  const csrfToken = req.csrfToken();
+  
 
     const success = true;
     const message = 'Rezervasyonunuz Oluşturuldu';
     const error = 'Rezervasyonunuz Oluşturulamadı';
 
     await Reservation.create({ ...req.body });
-    res.send({ data: success, message: message, error: error ,csrfToken:csrfToken});
+    res.send({ data: success, message: message, error: error });
 
   } catch (error) {
     console.error('Form gönderilirken bir hata oluştu:', error);
@@ -46,6 +46,8 @@ exports.createReservation = async (req, res) => {
 };
 
 exports.addDeposit = async(req,res)=>{
+ 
+
   const newDeposit = await Deposit.create({quantity :  req.body.quantity, date: req.body.date});
   console.log("Depozito eklendi : " + newDeposit.quantity);
   return newDeposit;

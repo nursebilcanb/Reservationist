@@ -50,6 +50,7 @@
        <form> 
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
+
        <div class="modal-body">
         <div class="form-group">
           <label for="table" class="col-form-label">Masa No:</label>
@@ -139,6 +140,8 @@
 
  <script>
   $(function () {
+   
+
    $(".square-button").click(function (){//listedeki click botununa tıklandığında çalışacak jquery kodları
      let tableNo = $(this).data('table'); //square butonu üzerinden data-table attribute'u ile bilgiler çekiliyor. 
      console.log('table no: '+ tableNo );
@@ -163,6 +166,9 @@
       $.ajax({
       url:"/user/reservation/add",
       type:"POST",
+      headers: {
+        'CSRF-Token': csrfToken
+      },
       data:{
         tableNo:tableNo,
         date: date,
@@ -190,6 +196,9 @@
      $.ajax({
       url:"/user/deposit/add",
       type:"POST",
+      headers: {
+        'CSRF-Token': csrfToken
+      },
       data: {
         date:date,
         quantity:deposit
