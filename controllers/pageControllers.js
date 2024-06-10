@@ -3,6 +3,9 @@ const Breakfast = require('../models/breakfast');
 const Dinner = require('../models/dinner');
 const Announcement = require('../models/announcement');
 
+const fs = require('fs');
+const counterFile = '../counter.txt'
+
 exports.aboutPage = async (req, res) => {
   const datas = await Gallery.findAll();
   const galleryData = datas.map((g)=>g.dataValues);
@@ -15,6 +18,18 @@ exports.homePage = async (req,res)=>{
   const ancData = datas.map((a)=>a.dataValues);
   res.render('index.ejs',{data:ancData,csrfToken:csrfToken});
 }
+
+exports.homePage = async (req,res)=>{
+  fs.readFile(counterFile,'utf-8', (err,data)=>{
+    if(err){
+      console.error('Sayaç dosyası okunamadı: ',err);
+      return res.status(500).send('Bir hata oluştu');
+    }
+    const visitorCount = parseInt(data);
+    res.render("index.ejs",{visitorCount:visitorCount});
+  });
+}
+
 exports.servicePage = (req,res)=>{
   res.render('service.ejs',{pageTitle:'Service',location:'SERVICE'});
 }

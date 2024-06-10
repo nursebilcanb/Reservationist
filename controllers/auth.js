@@ -47,17 +47,13 @@ exports.postLogin = async (req, res, next) => {
     },
     raw: true,
   });
-  console.log('adminn ', admin);
 
   if (admin.length == 0) {
     req.session.message = { text: 'Email hatalı', class: 'warning' };
     console.log('mesaj1 = ', req.session.message);
     return res.redirect('login');
   }
-  console.log(admin[0].password);
-  console.log(
-    `body password: ${req.body.password} , admin password:  ${admin[0].password}`
-  );
+
   if (await bcrypt.compare(req.body.password, admin[0].password)) {
     // şifre uyuşuyorsa
     req.session.isAuth = 1;

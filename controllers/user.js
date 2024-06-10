@@ -46,7 +46,6 @@ exports.createReservation = async (req, res) => {
 };
 
 exports.addDeposit = async(req,res)=>{
- 
 
   const newDeposit = await Deposit.create({quantity :  req.body.quantity, date: req.body.date});
   console.log("Depozito eklendi : " + newDeposit.quantity);
