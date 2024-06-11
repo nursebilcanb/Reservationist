@@ -50,6 +50,7 @@
                         </div>
                      
                     </div> -->
+                    <div><h2 style="color: white;">Online Kullanıcı Sayısı: <span id="onlineUsers">0</span></h2></div>
                     <div class="row align-items-center g-5">
                         <div class="col-lg-6 text-center text-lg-start">
                             <h1 class="display-6  text-white animated slideInLeft">Ziyaretçi Sayısı<br></h1>
@@ -113,6 +114,18 @@
     </div>
 
     <%- include('partials/_jsLib.ejs') -%>
+    <script>
+        const ws = new WebSocket('ws://localhost:3000');
+    
+    ws.onopen = function () {
+      console.log('WebSocket connection established');
+    };
+
+    ws.onmessage = function (event) {
+      const data = JSON.parse(event.data);
+      document.getElementById('onlineUsers').textContent = data.onlineUsers;
+        };
+    </script>
 
   
 </body>

@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const csurf = require('csurf');
 // const csrf = require('./middleware/csrf');
 const fileUpload = require('express-fileupload');
+const WebSocket=require('ws');
 
 
 
@@ -37,8 +38,8 @@ app.use(fileUpload());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(visitorController.incrementVisitorCount);
-// app.get('/page',visitorController.getVisitorCount);
+app.use(visitorController.incrementVisitorCount);
+app.get('/page',visitorController.getVisitorCount);
 //midleware session
 app.use(configSession);
 app.use(cookieParser());
@@ -54,7 +55,33 @@ app.use('/auth', authRouter);
 
 
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Server is running at port ${port}`);
+// const port = 3000;
+// app.listen(port, () => {
+//   console.log(`Server is running at port ${port}`);
+// });
+const server = app.listen(3000, () => {
+    console.log("Server dinleniyor");
+
+    // WebSocket sunucusunu başlatın
+    const wss = new WebSocket.Server({ server });
+
+    let onlineUsers = 0;
+
+    wss.on('connection', function connection(ws) {
+        onlineUsers+=1;
+        updateOnlineUsers();
+
+        ws.on('close', function () {
+            onlineUsers-=1;
+            updateOnlineUsers();
+        });
+    });
+
+    function updateOnlineUsers() {
+        wss.clients.forEach(function each(client) {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify({ onlineUsers }));
+            }
+        });
+    }
 });
